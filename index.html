@@ -2,11 +2,11 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Absen Lapangan</title>
+    <title>Absen RAWAT INAP</title>
 </head>
 <body>
     <h2>Absen Lapangan</h2>
-    <div id="status">Mengirim data absen...</div>
+    <div id="status">Mengirim data absen ranap</div>
 
     <script>
         // Ambil parameter dari URL
@@ -14,22 +14,27 @@
         const id = urlParams.get('id');
         const nama = urlParams.get('nama');
 
-        // Kirim ke Google Script
-        fetch('https://script.google.com/macros/s/AKfycbwEMw7VyBracdnk8THo6fzKsbOcCi4i1wg8_KAHyDI_e99sHEd674s78Ftx50jQvu6jqQ/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: id,
-                nama: nama
-            })
-        }).then(response => {
-            document.getElementById('status').innerText = 'Absen berhasil!';
-        }).catch(error => {
-            document.getElementById('status').innerText = 'Gagal mengirim absen.';
-        });
+        // Cek jika id dan nama ada
+        if (id && nama) {
+            // Kirim ke Google Script
+            fetch('https://script.google.com/macros/s/AKfycbx7LdrH-84vjGXYwQ7MKMlb98khY0FMArCXNQu0iBfe7isI0rat1eDS0AwPnlS0ZTQpeA/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id,
+                    nama: nama
+                })
+            }).then(response => {
+                document.getElementById('status').innerText = 'Absen berhasil!';
+            }).catch(error => {
+                document.getElementById('status').innerText = 'Gagal mengirim absen.';
+            });
+        } else {
+            document.getElementById('status').innerText = 'Data absen tidak lengkap.';
+        }
     </script>
 </body>
 </html>
